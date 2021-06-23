@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "335792508909",
+    "project_id": "veiculos-devnology",
+    "storage_bucket": "veiculos-devnology.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335792508909:android:b16f75cd6269111b1da1e4",
+        "android_client_info": {
+          "package_name": "com.example.devnology_cars_register"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335792508909-tdeu1d3lglr8b2qa1e3sscaakk1k4md8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkbgP1nxrx2coEeMvDUYdOgumSf_poCrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335792508909-tdeu1d3lglr8b2qa1e3sscaakk1k4md8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
