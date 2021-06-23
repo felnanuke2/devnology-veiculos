@@ -21,10 +21,18 @@ class DashboardController {
   int filter = 0;
   int order = 0;
   bool direction = false;
+  bool loading = false;
 
   var _vehiclesController = StreamController<List<AdquiredVehicleModel>>.broadcast();
   var _vehiclesRawController = StreamController<List<AdquiredVehicleModel>>.broadcast();
+  var _loadingController = StreamController<bool>.broadcast();
   var _filterController = StreamController<int>.broadcast();
+  void dispose() {
+    _vehiclesController.close();
+    _vehiclesRawController.close();
+    _loadingController.close();
+    _filterController.close();
+  }
 
   ///Defines what type of Vehicle the user wants to see.
   ///0 indicates all;
@@ -46,12 +54,17 @@ class DashboardController {
   }
 
   Stream<int> get filteroutOutput => _filterController.stream;
+  Stream<bool> get loadingOutput => _loadingController.stream;
   Stream<List<AdquiredVehicleModel>> get vehiclesOutput => _vehiclesController.stream;
   Stream<List<AdquiredVehicleModel>> get vehiclesRawOutput => _vehiclesRawController.stream;
 
   ///invokes the FirebaseRepository snapshot and keeps listening for changes that are made to the database.
   void getVehicleList() async {
+    loading = true;
+    _loadingController.add(loading);
     firebaseRepository.getVehiclesList().listen((event) {
+      loading = false;
+      _loadingController.add(loading);
       vehicles = event;
       _vehiclesRawController.add(vehicles);
       _updateList();

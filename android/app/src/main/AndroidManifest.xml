@@ -2,7 +2,7 @@
     package="com.example.devnology_cars_register">
    <application
         android:label="Gerenciamento de Veículos"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

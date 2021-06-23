@@ -22,6 +22,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DashBoarDrawer(),
@@ -47,6 +53,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   delegate: VehicleSearchDelegate(vehiclesList: _controller.filtredVehicles)),
               icon: Icon(Icons.search)),
           PopupMenuButton<int>(
+            icon: Icon(Icons.filter_list_outlined),
             onSelected: (value) => _controller.orderInput = value,
             itemBuilder: (context) => _listPoups(),
           )
@@ -56,19 +63,29 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           stream: _controller.vehiclesOutput,
           initialData: _controller.filtredVehicles,
           builder: (context, snapshotVehicles) {
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: snapshotVehicles.data!.length,
-                    itemBuilder: (context, index) => VehicleTile(
-                      key: UniqueKey(),
-                      vehicle: snapshotVehicles.data![index],
-                    ),
-                  ),
-                )
-              ],
-            );
+            return StreamBuilder<bool>(
+                stream: _controller.loadingOutput,
+                initialData: _controller.loading,
+                builder: (context, snapshotLoading) {
+                  bool isLoading = snapshotLoading.data == true;
+                  return Column(
+                    children: [
+                      if (isLoading)
+                        Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshotVehicles.data!.length,
+                          itemBuilder: (context, index) => VehicleTile(
+                            key: UniqueKey(),
+                            vehicle: snapshotVehicles.data![index],
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                });
           }),
     );
   }
