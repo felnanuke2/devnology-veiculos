@@ -66,7 +66,7 @@ class DashboardController {
 
     DateTime saleDate = result['saledate'];
     num salePrice =
-        num.parse(result['saleprice'].toString().replaceFirst('.', '').replaceAll(',', '.'));
+        num.parse(result['saleprice'].toString().replaceAll('.', '').replaceAll(',', '.'));
 
     var lucro = salePrice - vehicle.buyPrice;
     //seller lucro = 10% (0.1)
