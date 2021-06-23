@@ -11,6 +11,10 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/route_manager.dart';
 
 class DashboardController {
+  DashboardController({
+    required this.firebaseRepository,
+  });
+
   final FirebaseRepository firebaseRepository;
   static List<AdquiredVehicleModel> vehicles = [];
   List<AdquiredVehicleModel> filtredVehicles = [];
@@ -22,6 +26,10 @@ class DashboardController {
   var _vehiclesRawController = StreamController<List<AdquiredVehicleModel>>.broadcast();
   var _filterController = StreamController<int>.broadcast();
 
+  ///Defines what type of Vehicle the user wants to see.
+  ///0 indicates all;
+  ///1 indicates unsold;
+  ///2 indicates sold;
   set filterInput(int index) {
     filter = index;
     order = 0;
@@ -29,6 +37,8 @@ class DashboardController {
     _updateList();
   }
 
+  ///defines in which order the list results should appear.
+  ///the direction is defined by the var [direction] that every time it is reordered, it changes its value to the inverse
   ///use  0 is vehicleName, 1 is buyDate, 2 is buyPrice, 3 is saleDate, 4 is salePrice
   set orderInput(int index) {
     order = index;
@@ -39,10 +49,7 @@ class DashboardController {
   Stream<List<AdquiredVehicleModel>> get vehiclesOutput => _vehiclesController.stream;
   Stream<List<AdquiredVehicleModel>> get vehiclesRawOutput => _vehiclesRawController.stream;
 
-  DashboardController({
-    required this.firebaseRepository,
-  });
-
+  ///invokes the FirebaseRepository snapshot and keeps listening for changes that are made to the database.
   void getVehicleList() async {
     firebaseRepository.getVehiclesList().listen((event) {
       vehicles = event;
@@ -51,6 +58,8 @@ class DashboardController {
     });
   }
 
+  ///Makes the sale of a vehicle.
+  ///It is necessary to pass the vehicle to which you want to make the sale
   Future<AdquiredVehicleModel?> saleVehicle(AdquiredVehicleModel vehicle) async {
     var result = await _showSaleDialog();
     if (result == null) return null;
@@ -69,6 +78,7 @@ class DashboardController {
     return saleResult;
   }
 
+  ///invokes a dialog so the user can choose the sale amount and date
   Future<Map?> _showSaleDialog() async {
     var salePrice = MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.');
     var saleDate = TextEditingController();
@@ -84,6 +94,7 @@ class DashboardController {
     }
   }
 
+  ///shows a dialog for the user to choose on which date the vehicle was sold
   Future<DateTime?> _pickSaleDate(TextEditingController textController) async {
     var context = Get.context!;
     var result = await showDatePicker(
@@ -102,6 +113,7 @@ class DashboardController {
     return null;
   }
 
+  ///delete a vehicle from the database
   deletVehicle(String id) async {
     Get.snackbar('Deletando Veículo', 'Seu veículo esta sendo removido.',
         backgroundColor: Colors.white,
@@ -129,6 +141,7 @@ class DashboardController {
     }
   }
 
+  ///filters which result the user wants to see and then updates the view through the streamController
   _updateList() {
     switch (filter) {
       case 0:
@@ -149,6 +162,7 @@ class DashboardController {
     _vehiclesController.add(filtredVehicles);
   }
 
+  ///define in which order the list results will appear to the user
   _orderBy() {
     switch (order) {
       case 0:

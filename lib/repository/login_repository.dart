@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translator/translator.dart';
 
 class LoginRepository {
+  ///tries to login using firebaseAuth.
+  ///if there is an error returns the error code and if everything goes well returns null
   Future<String?> login(String email, String password) async {
     try {
       var credencial =

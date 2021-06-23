@@ -6,6 +6,7 @@ import 'package:devnology_cars_register/repository/fipe_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseRepository {
+  ///Create a vehicle in the database.
   Future<bool> createVehicle(
       {required VehicleType type,
       required String marca,
@@ -36,6 +37,7 @@ class FirebaseRepository {
     return true;
   }
 
+  ///returns a stream that listens to events in the firebase database and passes it on to the caller
   Stream<List<AdquiredVehicleModel>> getVehiclesList() {
     return FirebaseFirestore.instance
         .collection(USERS_COLLECTION)
@@ -47,6 +49,7 @@ class FirebaseRepository {
     });
   }
 
+  ///updates the vehicle by adding a [SaleModel] to the document
   Future<AdquiredVehicleModel?> saleVehicle(
       AdquiredVehicleModel vehicleModel, SaleModel sale) async {
     try {
@@ -65,6 +68,7 @@ class FirebaseRepository {
     }
   }
 
+  ///delete the corresponding vehicle document from the database
   Future<bool> deletVeiculo(String id) async {
     try {
       await FirebaseFirestore.instance

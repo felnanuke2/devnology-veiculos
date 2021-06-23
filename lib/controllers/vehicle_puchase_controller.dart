@@ -13,6 +13,8 @@ import 'package:devnology_cars_register/repository/fipe_repository.dart';
 import 'package:get/route_manager.dart';
 
 class VehiclePurchaseController {
+  VehiclePurchaseController(
+      {required this.repository, required this.scaffoldKey, required this.firebaseRepository});
   final FipeRepository repository;
   final FirebaseRepository firebaseRepository;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -91,7 +93,7 @@ class VehiclePurchaseController {
   Stream<VehicleNoDetailModel?> get selectedVehicleNoDetailOutput =>
       _selectedVehicleNoDetailsStreamController.stream;
   Stream<bool> get loadingOutput => _loadingController.stream;
-
+//dispose all StreamControllers
   void dispose() {
     _listMarcaStreamController.close();
     _listVehiclesNoDetailsStreamController.close();
@@ -101,9 +103,7 @@ class VehiclePurchaseController {
     _loadingController.close();
   }
 
-  VehiclePurchaseController(
-      {required this.repository, required this.scaffoldKey, required this.firebaseRepository});
-
+  ///do a get to fipe api to see the available brands
   Future<List<MarcaModel>> getMarcas() async {
     this.type = type;
     var marcas = await repository.getMarcas(type!);
@@ -115,6 +115,8 @@ class VehiclePurchaseController {
     }
   }
 
+  ///do a get to fipe api to consulate the vehicles of the brand determined in
+  ///getMarcas()
   Future<List<VehicleNoDetailModel>> getVehiclesList() async {
     var vehicles = await repository.getVehicles(type!, selectedMarcaModel!.id);
     if (vehicles != null) {
@@ -124,6 +126,7 @@ class VehiclePurchaseController {
     }
   }
 
+  ///do a get to fipe api to consulate the years of the vehicle selected in getVehiclesList()
   Future<List<YearModel>> getAnoModel() async {
     var anoModel = await repository.getVehicleYearModel(
         type!, selectedMarcaModel!.id, selectedVehicleNoDetailModel!.id);
@@ -131,6 +134,10 @@ class VehiclePurchaseController {
     return [];
   }
 
+  ///does a get to fipe api to consulate the details of a vehicle with the data obtained in the previous steps
+  ///getAnomodel()
+  ///getVehicleList()
+  ///getMarcas()
   Future<VehicleWithDetaillModel?> getVehicleWithDetail() async {
     var result = await repository.getVehicleDetail(
         type!, selectedMarcaModel!.id, selectedVehicleNoDetailModel!.id, anoModel!.id);
@@ -138,6 +145,7 @@ class VehiclePurchaseController {
     return result;
   }
 
+  ///when the corresponding textfield is clicked it opens a dialog to choose the vehicle purchase date
   Future<String?> pickBuyDate(BuildContext context) async {
     var result = await showDatePicker(
         context: context,
@@ -153,6 +161,8 @@ class VehiclePurchaseController {
     }
   }
 
+  ///after verifying that all fields are valid execute the firebaserepsitory function to create a vehicle in the database.
+  ///If all goes well at the end, it returns to the dashboard and shows a snackBar indicating success
   void createnewVehicle(String placa, String chassis, String buyPrice, String color) async {
     var verify = _veryfyField();
     if (verify != null) {
@@ -200,6 +210,7 @@ class VehiclePurchaseController {
     );
   }
 
+  ///validates control instance fields
   String? _veryfyField() {
     if (type == null) return 'Escolha um Tipo de Veículo';
     if (selectedMarcaModel == null) return 'Escolha uma Marcar';

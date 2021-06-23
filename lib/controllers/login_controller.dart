@@ -21,6 +21,9 @@ class LoginController {
   Stream<bool> get loginOutput => _loginController.stream;
   Stream<String?> get errorLoginOutput => _errorController.stream;
 
+  ///tries to perform a login by executing the function that comes from the LoginRepository.
+  ///if there is any error the error message is passed to the user through the stremController.
+  ///if everything goes well the user is directed to the dashboard.
   login(String email, String password) async {
     _loginController.add(true);
     var result = await repository.login(email, password);

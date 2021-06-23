@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 class FipeRepository {
   final BASE_API_URL = 'http://fipeapi.appspot.com/api/1/';
 
+  ///responsible for making the request for the list of brands
   Future<List<MarcaModel>?> getMarcas(VehicleType vehicleType) async {
     final marcaUrl = '$BASE_API_URL${_getVehicleType(vehicleType)}/marcas.json';
     var response = await http.get(Uri.parse(marcaUrl));
@@ -21,6 +22,7 @@ class FipeRepository {
       return null;
   }
 
+  ///responsible for making the request to obtain the vehicle list
   Future<List<VehicleNoDetailModel>?> getVehicles(VehicleType type, int marcaID) async {
     final vehiclesApiUrl = '$BASE_API_URL${_getVehicleType(type)}/veiculos/$marcaID.json';
     var response = await http.get(Uri.parse(vehiclesApiUrl));
@@ -35,6 +37,7 @@ class FipeRepository {
     }
   }
 
+  ///responsible for making the request to obtain the list of years of the vehicles
   Future<List<YearModel>?> getVehicleYearModel(
       VehicleType type, int marcaId, String vehicleId) async {
     final vehicleModelApiUrl =
@@ -49,6 +52,7 @@ class FipeRepository {
     }
   }
 
+  ///responsible for making the request to obtain the detailed result of a particular vehicle
   Future<VehicleWithDetaillModel?> getVehicleDetail(
       VehicleType type, int marcaId, String vehicleId, String modelId) async {
     final vehicleDetailApiUrl =
@@ -62,6 +66,7 @@ class FipeRepository {
     }
   }
 
+  ///turns an enum of [VehicleType] into a string to query the api
   String _getVehicleType(VehicleType type) {
     switch (type) {
       case VehicleType.Carros:

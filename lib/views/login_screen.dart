@@ -82,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 15,
                         ),
                         StreamBuilder<String?>(
+                          //listen error from repository
                           stream: _controller.errorLoginOutput,
                           builder: (context, snapshotError) {
                             if (snapshotError.data == null) return SizedBox.shrink();
@@ -104,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 150,
                     height: 45,
                     child: StreamBuilder<bool>(
+                        //listen the login process
                         stream: _controller.loginOutput,
                         builder: (context, snapshot) {
                           bool isLoading = snapshot.data == true;

@@ -7,6 +7,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfHelper {
+  ///Generate a PDF file from the past list
   static generateRelatry(List<AdquiredVehicleModel> listVehicles) async {
     var context = Get.context;
     var dateRange = await showDateRangePicker(
@@ -15,6 +16,7 @@ class PdfHelper {
     _generatePdf(dateRange, listVehicles);
   }
 
+  ///creates pdf file structure
   static _generatePdf(DateTimeRange dateTimeRange, List<AdquiredVehicleModel> listVehicles) async {
     var startAt = dateTimeRange.start;
     var endAt = DateTime.fromMillisecondsSinceEpoch(
