@@ -34,7 +34,7 @@ O usuári podera acessar seus dados de qualquer lugar bastando possuir uma conta
 - A tela de de detalhes do veículo possui opções de fazer um venda caso ainda não tenha sido efetuada e 
 excluir um veículo do banco de dados.
 
-# Requerimentos do Sistema
+# Exigência do Sistema
 
 - Cadastrar a compra de um veículo, modelo, marca, ano de fabricação, placa, cor, chassi, data da compra e valor da compra.
 
