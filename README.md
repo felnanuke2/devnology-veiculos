@@ -13,21 +13,21 @@ Você precisará construir um sistema para uma agência de veículos, ele será 
 - Nesse caso a Configuração foi feita apenas para Android.
 
 
-Crie um arquivo readme falando um pouco sobre quais as decisões que você tomou para a resolução do exercício, e, caso não tenha feito algo, explique o motivo. Também informe os passos para fazer sua aplicação rodar, e caso tenha, o processo de deploy.
+
 
 # Desisões
-- Para adicionar um veículo foi foi consumida a api da Fipe [http://fipeapi.appspot.com/] para consultar as marcas, os nomes dos veículos anos e o valor médio de venda.
+Crie um arquivo readme falando um pouco sobre quais as decisões que você tomou para a resolução do exercício, e, caso não tenha feito algo, explique o motivo. Também informe os passos para fazer sua aplicação rodar, e caso tenha, o processo de deploy.
+
+- Para adicionar um veículo foi foi consumida a api da Fipe http://fipeapi.appspot.com/ para consultar as marcas, os nomes dos veículos anos e o valor médio de venda.
 - Com o App é possível  gerar relatório em PDF e compartilha-lo onde queira.
 O PDF possui informações de total de gastos com aquisições, total com vendas, lucro, e comissão dos vendedores, lista com todos os veículos adquiridos no período determinado e lista de veículos vendidos no período determinado.
-- Autênticação
-É necessário que o usuário se autentique para poder ultilizar o app.
+- É necessário que o usuário se autentique para poder ultilizar o app.
 Cada usuário possui seu próprio documento no banco de dados com seus próprios veículos.
 O usuári podera acessar seus dados de qualquer lugar bastando possuir uma conta.
-- Detalhes do veículo
-A tela de de detalhes do veículo possui opções de fazer um venda caso ainda não tenha sido efetuada;
-Ecluir um veículo do banco de dados.
+- A tela de de detalhes do veículo possui opções de fazer um venda caso ainda não tenha sido efetuada e 
+excluir um veículo do banco de dados.
 
-Precisamos que nosso sistema seja capaz de:
+# Requerimentos do Sistema
 
 - Cadastrar a compra de um veículo, modelo, marca, ano de fabricação, placa, cor, chassi, data da compra e valor da compra.
 
@@ -42,3 +42,14 @@ Caso queira criar mais funcionalidades fique à vontade, apenas se lembre de men
 Qualquer dúvida entre em contato comigo pelo linkedin, estarei à disposição para esclarecer quaisquer dúvidas que surgirem.
 
 Ao finalizar a prova basta enviar o link do repositório no linkedin.
+
+# Executar o App
+- Clone esse repositório.
+- Abra seu cmd no diretório raiz do Projeto.
+se for excutar o app em um dispositivo real
+- Execute o comando: flutter build apk (isso pode levar algum tempo)
+- Execute o comando: flutter install apk (isso irá instalar o app no seu dispositivo)
+Caso você queira executar o app em um emulador.
+- Execute o comando: flutter run
+
+- Fim!!
