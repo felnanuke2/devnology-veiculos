@@ -53,9 +53,13 @@ Ao finalizar a prova basta enviar o link do repositório no linkedin.
 # Executar o App
 - Clone esse repositório.
 - Abra seu cmd no diretório raiz do Projeto.
+
+
 se for excutar o app em um dispositivo real
 - Execute o comando: flutter build apk (isso pode levar algum tempo)
-- Execute o comando: flutter install apk (isso irá instalar o app no seu dispositivo)\n
+- Execute o comando: flutter install apk (isso irá instalar o app no seu dispositivo)
+
+
 Caso você queira executar o app em um emulador.
 - Execute o comando: flutter run
 
